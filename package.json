@@ -1,0 +1,23 @@
+{
+  "name": "zemljevid-slik",
+  "description": "Interaktivni zemljevid slik",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd server && node server.js",
+    "build": "cd app && cordova build",
+    "develop": "cd app && cordova serve $PORT",
+    "setup": "cd server && node setup.js"
+  },
+  "author": "Metod Medja",
+  "license": "MIT",
+    "dependencies": {
+    "body-parser": "1.15.1",
+    "cordova": "6.2.0",
+    "express": "4.14.0",
+    "mysql": "2.11.1"
+  },
+    "repository": {
+    "type" : "git",
+    "url" : "https://github.com/OpenLab-SI/zemljevid-slik.git"
+  }
+}
