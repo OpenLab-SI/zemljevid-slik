@@ -48,8 +48,10 @@ cameraButton.addEventListener('click', function() {
 });
 
 function addImage(url, location) {
+    var animation = url.substr(0, 4) === 'data';
+    
     var marker = new google.maps.Marker({
-        animation: google.maps.Animation.DROP,
+        animation: animation ? google.maps.Animation.DROP : null,
         position: location,
         map: map
     });
