@@ -27,6 +27,12 @@ document.addEventListener('deviceready', function() {
     });
 });
 
+window.addEventListener('resize', function() {
+    var center = map.getCenter();
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(center);
+});
+
 cameraButton.addEventListener('click', function() {
     navigator.camera.getPicture(function(image) {
         var url = 'data:image/jpeg;base64,' + image;
