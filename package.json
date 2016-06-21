@@ -6,7 +6,7 @@
     "start": "cd server && node server.js",
     "build": "cd app && cordova build",
     "develop": "cd app && cordova serve $PORT",
-    "setup": "cd server && node setup.js"
+    "prepare": "cd server && node prepare.js && cd ../app && cordova prepare"
   },
   "author": "Metod Medja",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "express": "4.14.0",
     "mysql": "2.11.1"
   },
-    "repository": {
+  "repository": {
     "type" : "git",
     "url" : "https://github.com/OpenLab-SI/zemljevid-slik.git"
   }
