@@ -1,5 +1,8 @@
 /* global google, fetch, navigator */
 
+var markers = [];
+var server = 'https://zemljevid-slik-medja.c9users.io';
+
 var isCentered = false;
 var currentPosition;
 
@@ -38,6 +41,7 @@ cameraButton.addEventListener('click', function() {
         var url = 'data:image/jpeg;base64,' + image;
         
         addImage(url, currentPosition);
+        uploadImage(image, currentPosition);
     }, function () {}, {
         destinationType: 0
     });
@@ -54,8 +58,51 @@ function addImage(url, location) {
         gallery.style.backgroundImage = 'url(' + url + ')';
         gallery.style.transform = 'translateY(0)';
     });
+    
+    markers.push(marker);
 }
 
 closeButton.addEventListener('click', function() {
     gallery.style.transform = 'translateY(100%)';
 });
+
+function uploadImage(image, location) {
+    fetch(server + '/images', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            latitude: location.lat,
+            longitude: location.lng,
+            image: image
+        })
+    });
+}
+
+function updateImages() {
+    fetch(server + '/images').then(function(res) {
+        return res.json();
+    }).then(replaceImages);
+}
+
+function replaceImages(images) {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    
+    markers = [];
+    
+    images.forEach(function(image) {
+        var url = server + '/images/' + image.id;
+        
+        addImage(url, {
+            lat: image.latitude,
+            lng: image.longitude
+        });
+    });
+}
+
+updateImages();
+setInterval(updateImages, 60 * 1000);
